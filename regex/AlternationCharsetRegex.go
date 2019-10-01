@@ -19,7 +19,13 @@ func (this *AlternationCharsetRegex) Accept(converter *NFAConverter) *NFAModel {
 }
 
 func (this *AlternationCharsetRegex) GetUncompactableCharset() *RuneSet {
-	return NewRuneSet()
+	runeSet := NewRuneSet()
+
+	for _, c := range this.Charset {
+		runeSet.Add(c)
+	}
+
+	return runeSet
 }
 
 func (this *AlternationCharsetRegex)Many() IRegex {

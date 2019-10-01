@@ -15,18 +15,26 @@ func Literal(str string) IRegex {
 }
 
 func Range(min rune, max rune) IRegex {
-	count := (max - min + 1)
-	if count <= 0 {
-		return Empty()
-	} else if count == 1 {
-		return Symbol(min)
+	//count := (max - min + 1)
+	//if count <= 0 {
+	//	return Empty()
+	//} else if count == 1 {
+	//	return Symbol(min)
+	//}
+	//
+	//var exp IRegex = Symbol(min)
+	//
+	//for c := min + 1; c <= max; c ++ {
+	//	exp = exp.Union(Symbol(c))
+	//}
+
+	//return exp
+
+	charset := []rune{}
+	for c := min; c <= max; c ++ {
+		charset = append(charset, c)
 	}
 
-	var exp IRegex = Symbol(min)
+	return NewAlternationCharsetRegex(charset)
 
-	for c := min + 1; c <= max; c ++ {
-		exp = exp.Union(Symbol(c))
-	}
-
-	return exp
 }

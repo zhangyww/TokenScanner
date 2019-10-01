@@ -160,7 +160,10 @@ func (this *DFAModel) GetClosure(state *DFAState) *DFAState {
 					_, alreadyExist := closure.NFAStatesIndexes.Data[rune(target.Index)]
 
 					closure.NFAStatesIndexes.Add(rune(target.Index))
-					changed = alreadyExist || changed
+					//changed = alreadyExist || changed
+					if !alreadyExist {
+						changed = true
+					}
 				}
 			}
 		}

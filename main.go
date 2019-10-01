@@ -10,57 +10,67 @@ func main() {
 	lexicon := regex.NewLexicon()
 	lexer := lexicon.DefaultLexer
 
-	//IF := lexer.DefineToken(regex.Literal("if"))
-	//ELSE := lexer.DefineToken(regex.Literal("else"))
-	//WHILE := lexer.DefineToken(regex.Literal("while"))
-	//FOR := lexer.DefineToken(regex.Literal("for"))
-	//ID := lexer.DefineToken(regex.Range('a','z').Concat(
-	//	(regex.Range('a','z').Union(regex.Range('0','9')).Many())))
-	//NUM := lexer.DefineToken(regex.Range('0','9').Many1())
-	AORB := lexer.DefineToken(regex.NewAlternationRegex(regex.NewAlternationRegex(regex.Symbol('a'),regex.Symbol('b')),regex.Symbol('c')))
+	IF := lexer.DefineToken(regex.Literal("if"))
+	ELSE := lexer.DefineToken(regex.Literal("else"))
+	ID := lexer.DefineToken(regex.Range('a','z').Concat(
+		(regex.Range('a','z').Union(regex.Range('0','9')).Many())))
+	NUM := lexer.DefineToken(regex.Range('0','9').Many1())
+	//AORB := lexer.DefineToken(regex.NewAlternationRegex(regex.NewAlternationRegex(regex.Symbol('a'),regex.Symbol('b')),regex.Symbol('c')))
 
 	scannerInfo := lexicon.CreateScannerInfo()
 	scanner := regex.NewScanner(scannerInfo)
 
-	source := "c a b a"
+	source := "asdf04a 1107 else if"
 	scanner.SetReader(bytes.NewReader([]byte(source)))
 
 	l1 := scanner.Read()
 	fmt.Println("l1.Token == ", l1.TokenIndex)
 	fmt.Println("l1.Value == ", l1.Value)
-	fmt.Println("ID.INdex == ", AORB.Index)
+	fmt.Println("ID.INdex == ", ID.Index)
+	fmt.Println("----------------------------")
 
-	l1 = scanner.Read()
-	fmt.Println("l1.Token == ", l1.TokenIndex)
-	fmt.Println("l1.Value == ", l1.Value)
-	fmt.Println("ID.INdex == ", AORB.Index)
-
-	l1 = scanner.Read()
-	fmt.Println("l1.Token == ", l1.TokenIndex)
-	fmt.Println("l1.Value == ", l1.Value)
-	fmt.Println("ID.INdex == ", AORB.Index)
-
-	l1 = scanner.Read()
-	fmt.Println("l1.Token == ", l1.TokenIndex)
-	fmt.Println("l1.Value == ", l1.Value)
-	fmt.Println("ID.INdex == ", AORB.Index)
-
-	//l2 := scanner.Read()
-	//fmt.Println("l2.Token == ", l2.TokenIndex)
-	//fmt.Println("l2.Value == ", l2.Value)
-	//fmt.Println("NUM.INdex == ", NUM.Index)
+	//l1 = scanner.Read()
+	//fmt.Println("l1.Token == ", l1.TokenIndex)
+	//fmt.Println("l1.Value == ", l1.Value)
+	//fmt.Println("ID.INdex == ", ID.Index)
 	//
-	//l3 := scanner.Read()
-	//fmt.Println("l3.Token == ", l3.TokenIndex)
-	//fmt.Println("l3.Value == ", l3.Value)
-	//fmt.Println("NUM.INdex == ", ELSE.Index)
+	//l1 = scanner.Read()
+	//fmt.Println("l1.Token == ", l1.TokenIndex)
+	//fmt.Println("l1.Value == ", l1.Value)
+	//fmt.Println("ID.INdex == ", ID.Index)
+	//
+	//l1 = scanner.Read()
+	//fmt.Println("l1.Token == ", l1.TokenIndex)
+	//fmt.Println("l1.Value == ", l1.Value)
+	//fmt.Println("ID.INdex == ", ID.Index)
+
+	l2 := scanner.Read()
+	fmt.Println("l2.Token == ", l2.TokenIndex)
+	fmt.Println("l2.Value == ", l2.Value)
+	fmt.Println("NUM.INdex == ", NUM.Index)
+	fmt.Println("----------------------------")
+
+	l3 := scanner.Read()
+	fmt.Println("l3.Token == ", l3.TokenIndex)
+	fmt.Println("l3.Value == ", l3.Value)
+	fmt.Println("ELSE.INdex == ", ELSE.Index)
+	fmt.Println("----------------------------")
+
+	l3 = scanner.Read()
+	fmt.Println("l3.Token == ", l3.TokenIndex)
+	fmt.Println("l3.Value == ", l3.Value)
+	fmt.Println("IF.INdex == ", IF.Index)
+	fmt.Println("----------------------------")
+
 	//
 	//fmt.Println("IF.INdex == ", IF.Index)
+
 
 	l4 := scanner.Read()
 	fmt.Println("l4.Token == ", l4.TokenIndex)
 	fmt.Println("l4.Value == ", l4.Value)
 	fmt.Println("EOFTOKEN.INdex == ", regex.EOF_TOKEN_INDEX)
+	fmt.Println("----------------------------")
 
 	//dfaModel := regex.CreateDFAModel(lexicon)
 	//transitionTable := regex.Compress(dfaModel)
